@@ -16,8 +16,8 @@ import {
 import star from '../../asets/images/estrela.svg'
 
 export interface MenuItem {
-  id: number
   foto: string
+  id: number
   preco: number
   nome: string
   descricao: string
@@ -68,7 +68,7 @@ const Restaurant = ({
           </TitleContainer>
           <Description>{getDescription(descricao)}</Description>
           <Link to={`/restaurant/${id}`}>
-            {' '}
+            {/* Passar solução definitiva para to={`/restaurant/${id}`}> */}{' '}
             <Button>Saiba mais</Button>{' '}
           </Link>
         </CardContainer>
