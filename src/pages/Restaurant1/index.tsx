@@ -75,8 +75,8 @@ const Restaurant1 = () => {
   if (!restaurante) {
     return <h3>Carregando...</h3>
   }
-  console.log(`Imprimindo o id passado para a url + ${id}`)
-  console.log(restaurante)
+  // console.log(`Imprimindo o id passado para a url + ${id}`)
+  // console.log(restaurante)
 
   return (
     <>
