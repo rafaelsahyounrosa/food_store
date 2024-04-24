@@ -67,7 +67,7 @@ const Restaurant = ({
             </RateDiv>
           </TitleContainer>
           <Description>{getDescription(descricao)}</Description>
-          <Link to={`/restaurant/1`}>
+          <Link to={`/restaurant/${id}`}>
             {/* Passar solução definitiva para to={`/restaurant/${id}`}> */}{' '}
             <Button>Saiba mais</Button>{' '}
           </Link>
