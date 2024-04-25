@@ -78,6 +78,8 @@ export const ModalContainer = styled.div`
     line-height: 16px;
     text-align: center;
     margin-top: 16px;
+    background-color: ${cores.amareloMedio};
+    color: ${cores.vermelho};
   }
 `
 
