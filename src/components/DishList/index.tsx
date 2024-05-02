@@ -2,9 +2,13 @@ import { Close, List, Modal, ModalContainer, ModalContent } from './styles'
 import { ListContainer } from '../ProductsList/styles'
 import Dish from '../Dish'
 import { CardapioItem } from '../../pages/Home'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { MenuItem } from '../Products'
 import closeIcon from '../../asets/images/close.png'
+import { useParams } from 'react-router-dom'
+import Restaurante from '../../models/Restaurante'
+import { useDispatch } from 'react-redux'
+import { add, open, close } from '../../store/reducers/cart'
 
 type Props = {
   dishList: CardapioItem[]
@@ -22,6 +26,10 @@ export const formataPreco = (preco = 0) => {
 }
 
 const DishList = ({ dishList }: Props) => {
+  const { id } = useParams()
+
+  const [currentRest, setCurrentRest] = useState<Restaurante>()
+
   const [modal, setModal] = useState<ModalState>({
     isVisible: false
   })
@@ -40,10 +48,30 @@ const DishList = ({ dishList }: Props) => {
     })
   }
 
+  const dispatch = useDispatch()
+
+  const addToCart = () => {
+    dispatch(add(selectedProduct!))
+    dispatch(open())
+    setModal({
+      isVisible: false
+    })
+  }
+
+  useEffect(() => {
+    fetch(`https://fake-api-tau.vercel.app/api/efood/restaurantes/${id}`)
+      .then((res) => res.json())
+      .then((res) => setCurrentRest(res))
+  }, [id])
+
+  if (!currentRest) {
+    return <h3>Carregando...</h3>
+  }
+
   return (
     <ListContainer className="container">
       <List>
-        {dishList.map((dish: CardapioItem) => (
+        {currentRest.cardapio?.map((dish) => (
           <li key={dish.id} onClick={() => openModal(dish)}>
             <Dish
               id={dish.id}
@@ -65,9 +93,7 @@ const DishList = ({ dishList }: Props) => {
 
                 <p>{selectedProduct.descricao}</p>
                 <span>{selectedProduct.porcao}</span>
-                <button
-                // onClick={console.log('Adicionando ao carrinho')}
-                >
+                <button onClick={addToCart}>
                   Adicionar ao carrinho {formataPreco(selectedProduct.preco)}
                 </button>
               </div>
